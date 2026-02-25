@@ -79,7 +79,7 @@ EOF
         rm -rf feeds/packages/lang/golang
         git clone https://github.com/sbwml/packages_lang_golang -b 24.x feeds/packages/lang/golang
         #修改后台ip地址
-        sed -i 's/192.168.1.1/192.168.0.22/g' "$CONFIG_GENERATE_FILE"
+        sed -i 's/192.168.1.1/192.168.5.1/g' "$CONFIG_GENERATE_FILE"
         # 修改NTP 服务器
         sed -i "s/set system.ntp.enable_server='0'/set system.ntp.enable_server='1'/g" "$CONFIG_GENERATE_FILE"
         #修改hostname
@@ -129,15 +129,15 @@ fi
 
 cd "$OPENWRT_DIR"
 
-echo "### 8. 是否开始构建固件？ ###"
-read -p "是否开始构建固件？(yes/no): " confirm
-if [[ "$confirm" != [yY] && "$confirm" != [yY][eE][sS] ]]; then
-    cd "$OPENWRT_DIR"
-    echo "⚠️ 构建已取消，下次运行将跳过前置步骤，已切换到源码目录：$OPENWRT_DIR"
-    echo "如需自行配置插件应用 请运行make menuconfig"
-    exec bash
-    exit 0
-fi
+# echo "### 8. 是否开始构建固件？ ###"
+# read -p "是否开始构建固件？(yes/no): " confirm
+# if [[ "$confirm" != [yY] && "$confirm" != [yY][eE][sS] ]]; then
+#     cd "$OPENWRT_DIR"
+#     echo "⚠️ 构建已取消，下次运行将跳过前置步骤，已切换到源码目录：$OPENWRT_DIR"
+#     echo "如需自行配置插件应用 请运行make menuconfig"
+#     exec bash
+#     exit 0
+# fi
 
 echo "### 9. 下载源码 ###"
 make download -j$(nproc)
