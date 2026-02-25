@@ -97,11 +97,11 @@ EOF
     CLASH_TUN_URL="https://raw.githubusercontent.com/vernesong/OpenClash/refs/heads/core/master/premium/clash-linux-amd64-2023.08.17-13-gdcc8d87.gz"
 
     echo "正在获取 Clash Meta 最新版本..."
-    LATEST_META_VERSION=$(curl -s https://api.github.com/repos/MetaCubeX/mihomo/releases/latest | grep '"tag_name":' | sed -E 's/.*"v([^"]+)".*/\1/')
-    if [ -z "$LATEST_META_VERSION" ]; then
-        echo "❌ 获取 Clash Meta 最新版本失败，退出"; exit 1
-    fi
-    CLASH_META_URL="https://github.com/MetaCubeX/mihomo/releases/download/v$LATEST_META_VERSION/mihomo-linux-amd64-v$LATEST_META_VERSION.gz"
+    # LATEST_META_VERSION=$(curl -s https://api.github.com/repos/MetaCubeX/mihomo/releases/latest | grep '"tag_name":' | sed -E 's/.*"v([^"]+)".*/\1/')
+    # if [ -z "$LATEST_META_VERSION" ]; then
+    #     echo "❌ 获取 Clash Meta 最新版本失败，退出"; exit 1
+    # fi
+    CLASH_META_URL="https://github.com/MetaCubeX/mihomo/releases/download/v1.19.20/mihomo-linux-amd64-v1.19.20.gz"
 
     wget -qO- "$CLASH_DEV_URL" | tar xOvz > clash && chmod +x clash
     wget -qO- "$CLASH_TUN_URL" | gunzip -c > clash_tun && chmod +x clash_tun
@@ -121,7 +121,7 @@ EOF
     wget https://raw.githubusercontent.com/8680/OpenWrt-AutoBuild/master/diy/data/zsh/.zshrc -O .zshrc
 
     echo "### 7. 应用构建配置 ###"
-    wget https://raw.githubusercontent.com/8680/OpenWrt-AutoBuild/master/diy/configs/x86.config -O "$OPENWRT_DIR/.config"
+    wget https://raw.githubusercontent.com/jiemiqi/OpenWrt-AutoBuild/master/diy/configs/x86.config -O "$OPENWRT_DIR/.config"
 
     touch "$READY_FLAG"
     echo "✅ 前置步骤完成。下次将自动跳过这些操作。"
