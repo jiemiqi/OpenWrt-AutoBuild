@@ -26,11 +26,12 @@ else
 
     echo "### 2. 添加自定义软件包 ###"
     cd "$OPENWRT_DIR/package"
-    #git clone --depth=1 https://github.com/NueXini/NueXini_Packages
+    # git clone --depth=1 https://github.com/NueXini/NueXini_Packages
     git clone --depth=1 https://github.com/rufengsuixing/luci-app-adguardhome.git
     git clone --depth=1 https://github.com/8680/openwrt-lolcat
     git clone --depth=1 https://github.com/nikkinikki-org/OpenWrt-nikki
     git clone -b dev --depth=1 https://github.com/vernesong/OpenClash.git
+    git clone --depth=1 https://github.com/jerrykuku/luci-theme-argon.git
     mkdir -p "$FILES_DIR/usr/bin"
     wget https://raw.githubusercontent.com/8680/OpenWrt-AutoBuild/master/diy/data/neofetch/neofetch -O "$FILES_DIR/usr/bin/neofetch" || echo "警告：neofetch 下载失败"
     chmod 775 "$FILES_DIR/usr/bin/neofetch"
@@ -145,7 +146,7 @@ make download -j$(nproc)
 echo "### 10. 生成 defconfig ###"
 make defconfig
 
-echo "### 11. 开始构建 (使用 $(nproc) 线程) ###"
-make V=s -j$(nproc)
+echo "### 11. 开始构建 (使用 1 线程) ###"
+make V=s -j1
 
 echo "🎉 构建完成！固件已生成。"
