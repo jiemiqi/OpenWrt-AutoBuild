@@ -8,6 +8,12 @@ READY_FLAG="$HOME/.openwrt_ready"
 OPENWRT_DIR="$HOME/openwrt"
 FILES_DIR="$OPENWRT_DIR/files"
 
+echo "#### 设置时间 ####"
+sudo apt install -y ntpdate
+sudo ntpdate time.windows.com
+
+
+
 # 允许重置
 if [ "$1" == "--reset" ]; then
     echo "🔁 重置构建环境..."
@@ -33,7 +39,7 @@ else
     git clone -b dev --depth=1 https://github.com/vernesong/OpenClash.git
     git clone --depth=1 https://github.com/jerrykuku/luci-theme-argon.git
     mkdir -p "$FILES_DIR/usr/bin"
-    wget https://raw.githubusercontent.com/8680/OpenWrt-AutoBuild/master/diy/data/neofetch/neofetch -O "$FILES_DIR/usr/bin/neofetch" || echo "警告：neofetch 下载失败"
+    wget https://raw.githubusercontent.com/jiemiqi/OpenWrt-AutoBuild/master/diy/data/neofetch/neofetch -O "$FILES_DIR/usr/bin/neofetch" || echo "警告：neofetch 下载失败"
     chmod 775 "$FILES_DIR/usr/bin/neofetch"
 
     echo "### 3. 更新和安装 feeds ###"
@@ -119,7 +125,7 @@ EOF
     git clone https://github.com/zsh-users/zsh-autosuggestions .oh-my-zsh/custom/plugins/zsh-autosuggestions
     git clone https://github.com/zsh-users/zsh-syntax-highlighting.git .oh-my-zsh/custom/plugins/zsh-syntax-highlighting
     git clone https://github.com/zsh-users/zsh-completions .oh-my-zsh/custom/plugins/zsh-completions
-    wget https://raw.githubusercontent.com/8680/OpenWrt-AutoBuild/master/diy/data/zsh/.zshrc -O .zshrc
+    wget https://raw.githubusercontent.com/jiemiqi/OpenWrt-AutoBuild/master/diy/data/zsh/.zshrc -O .zshrc
 
     echo "### 7. 应用构建配置 ###"
     wget https://raw.githubusercontent.com/jiemiqi/OpenWrt-AutoBuild/master/diy/configs/x86.config -O "$OPENWRT_DIR/.config"
@@ -147,6 +153,7 @@ echo "### 10. 生成 defconfig ###"
 make defconfig
 
 echo "### 11. 开始构建 (使用 1 线程) ###"
+make package/feeds/luci/luci-base/compile V=99
 make V=s -j1
 
 echo "🎉 构建完成！固件已生成。"

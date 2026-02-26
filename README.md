@@ -18,7 +18,7 @@
 ### 下载构建脚本
 
 ```bash
-wget https://raw.githubusercontent.com/8680/OpenWrt-AutoBuild/refs/heads/master/diy/scripts/build_openwrt.sh
+wget https://raw.githubusercontent.com/jiemiqi/OpenWrt-AutoBuild/refs/heads/master/diy/scripts/build_openwrt.sh
 ```
 
 ### 更新系统并安装依赖
